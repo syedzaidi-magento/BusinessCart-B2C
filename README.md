@@ -69,3 +69,119 @@ To set up **BusinessCart-B2C** locally, follow these steps:
    ```bash
    git clone https://github.com/syedzaidi-magento/BusinessCart-B2C.git
    cd BusinessCart-B2C
+   ```
+
+2. **Install PHP Dependencies**:
+   ```bash
+   composer install
+   ```
+
+3. **Install JavaScript/CSS Dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Configure Environment**:
+   Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   Generate an application key:
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Set Up Database**:
+   Edit `.env` to configure your database (example uses SQLite):
+   ```env
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/absolute/path/to/database.sqlite
+   ```
+   Run migrations:
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Compile Front-End Assets**:
+   ```bash
+   npm run dev
+   ```
+
+7. **Run the Application**:
+   ```bash
+   php artisan serve
+   ```
+   Visit [http://localhost:8000](http://localhost:8000) in your browser.
+
+## Getting Started
+- **Register a User**: Navigate to `/register` to create an account.
+- **Add Products (Admin)**: Log in as an admin (role = 'admin') and go to `/admin/products`.
+- **Manage Addresses**: Visit `/user/addresses` to add shipping and billing addresses.
+
+## Screenshots
+- **Product Listing**:
+  ![Product Listing](path/to/product-listing-screenshot.png)
+
+- **Admin Dashboard**:
+  ![Admin Dashboard](path/to/admin-dashboard-screenshot.png)
+
+*Note: Replace the screenshot paths with actual image locations in your repository.*
+
+## Roadmap
+- **Short-term**:
+  - Implement guest checkout.
+  - Add Stripe payment integration.
+- **Mid-term**:
+  - Introduce product attribute sets.
+  - Enable layered navigation.
+- **Long-term**:
+  - Integrate Elasticsearch for advanced search.
+  - Add multi-currency and multi-language support.
+
+## Contributing
+We welcome contributions! To get started:
+
+1. **Fork the repository**.
+2. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. **Commit your changes**:
+   ```bash
+   git commit -am 'Add YourFeature'
+   ```
+4. **Push to your branch**:
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. **Open a Pull Request**.
+
+Please follow our code of conduct and ensure your code passes all tests.
+
+## License
+This project is licensed under the MIT License:
+
+```text
+MIT License
+
+Copyright (c) 2024 Syed Zaidi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
