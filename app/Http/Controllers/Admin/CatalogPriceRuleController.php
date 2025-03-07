@@ -31,7 +31,7 @@ class CatalogPriceRuleController extends Controller
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
             'products' => 'nullable|array',
-            'products.*' => 'exists:sqlite_products.products,id',
+            'products.*' => 'exists:products,id',
         ]);
 
         $rule = CatalogPriceRule::create($request->only(['name', 'discount_percentage', 'discount_amount', 'start_date', 'end_date', 'is_active']));
@@ -59,7 +59,7 @@ class CatalogPriceRuleController extends Controller
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
             'products' => 'nullable|array',
-            'products.*' => 'exists:sqlite_products.products,id',
+            'products.*' => 'exists:products,id',
         ]);
 
         $catalogPriceRule->update($request->only(['name', 'discount_percentage', 'discount_amount', 'start_date', 'end_date', 'is_active']));

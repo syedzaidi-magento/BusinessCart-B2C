@@ -27,7 +27,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'products' => 'nullable|array',
-            'products.*' => 'exists:sqlite_products.products,id',
+            'products.*' => 'exists:products,id',
         ]);
 
         $category = Category::create($request->only(['name', 'description']));
@@ -51,7 +51,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'products' => 'nullable|array',
-            'products.*' => 'exists:sqlite_products.products,id',
+            'products.*' => 'exists:products,id',
         ]);
 
         $category->update($request->only(['name', 'description']));

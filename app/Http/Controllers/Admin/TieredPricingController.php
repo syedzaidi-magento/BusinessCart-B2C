@@ -24,7 +24,7 @@ class TieredPricingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:sqlite_products.products,id', // Specify connection
+            'product_id' => 'required|exists:products,id', // Specify connection
             'min_quantity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
         ]);
@@ -42,7 +42,7 @@ class TieredPricingController extends Controller
     public function update(Request $request, TieredPricing $tieredPricing)
     {
         $request->validate([
-            'product_id' => 'required|exists:sqlite_products.products,id', // Specify connection
+            'product_id' => 'required|exists:products,id', // Specify connection
             'min_quantity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
         ]);

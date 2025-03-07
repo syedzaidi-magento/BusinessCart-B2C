@@ -28,7 +28,7 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:sqlite_products.products,id',
+            'product_id' => 'required|exists:products,id',
             'warehouse_id' => 'required|exists:warehouses,id',
             'shelf_id' => 'required|exists:shelves,id',
             'quantity' => 'required|integer|min:0',
@@ -50,7 +50,7 @@ class InventoryController extends Controller
     public function update(Request $request, Inventory $inventory)
     {
         $request->validate([
-            'product_id' => 'required|exists:sqlite_products.products,id',
+            'product_id' => 'required|exists:products,id',
             'warehouse_id' => 'required|exists:warehouses,id',
             'shelf_id' => 'required|exists:shelves,id',
             'quantity' => 'required|integer|min:0',

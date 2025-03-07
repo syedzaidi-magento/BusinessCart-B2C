@@ -23,7 +23,7 @@ class CartPriceRuleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'coupon_code' => 'nullable|string|max:255|unique:sqlite_products.cart_price_rules,coupon_code', // Specify connection
+            'coupon_code' => 'nullable|string|max:255|unique:cart_price_rules,coupon_code', // Specify connection
             'type' => 'required|in:percentage,fixed,buy_x_get_y_free',
             'discount_value' => 'required_if:type,percentage,fixed|nullable|numeric|min:0',
             'buy_quantity' => 'required_if:type,buy_x_get_y_free|nullable|integer|min:1',
@@ -47,7 +47,7 @@ class CartPriceRuleController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'coupon_code' => 'nullable|string|max:255|unique:sqlite_products.cart_price_rules,coupon_code,' . $cartPriceRule->id, // Specify connection
+            'coupon_code' => 'nullable|string|max:255|unique:cart_price_rules,coupon_code,' . $cartPriceRule->id, // Specify connection
             'type' => 'required|in:percentage,fixed,buy_x_get_y_free',
             'discount_value' => 'required_if:type,percentage,fixed|nullable|numeric|min:0',
             'buy_quantity' => 'required_if:type,buy_x_get_y_free|nullable|integer|min:1',
