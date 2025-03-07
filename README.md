@@ -135,10 +135,10 @@ To set up **BusinessCart-B2C** locally, follow these steps:
 
 ## Screenshots
 - **Product Listing**:
-  ![Product Listing](/public/storage/images/screenshots/Product_list.png)
+  ![Product Listing](public/Product_list.png)
 
 - **Product Detail**:
-  ![Product Listing](/public/storage/images/screenshots/Product_show.png)
+  ![Product Listing](public/Product_show.png)
 
 
 - **Admin Dashboard**:
