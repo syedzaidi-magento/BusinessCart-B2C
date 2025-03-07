@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://github.com/your-username/your-repo-name" target="_blank">
+<a href="https://businesscart.ai" target="_blank">
     <img src="public/BusinessCart_logo.png" alt="Logo" />
 </a>
 
