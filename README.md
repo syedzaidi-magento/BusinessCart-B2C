@@ -142,7 +142,7 @@ To set up **BusinessCart-B2C** locally, follow these steps:
 
 
 - **Admin Dashboard**:
-  ![Admin Dashboard](/public/storage/images/screenshots/Dashboard.png)
+  ![Admin Dashboard](public/Dashboard.png)
 
 *Note: The screenshots actual images may not updated in this repository.*
 
