@@ -1,7 +1,7 @@
 <div align="center">
 
-<a href="http://localhost:8000" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
-![Logo](public/BusinessCart_logo.png)
+<a href="https://github.com/your-username/your-repo-name" target="_blank">
+    <img src="public/BusinessCart_logo.png" alt="Logo" />
 </a>
 
 ---
