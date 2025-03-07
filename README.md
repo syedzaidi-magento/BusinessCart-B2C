@@ -138,7 +138,7 @@ To set up **BusinessCart-B2C** locally, follow these steps:
 - **Admin Dashboard**:
   ![Admin Dashboard](public/Dashboard.png)
 
-*Note: The screenshots actual images may not updated in this repository.*
+*Note: The screenshots in this repository may not be up-to-date.*
 
 ## Roadmap
 - **Short-term**:
@@ -172,4 +172,4 @@ We welcome contributions! To get started:
 Please follow our code of conduct and ensure your code passes all tests.
 
 ## License
-This project is licensed under the MIT License:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
