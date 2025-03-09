@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Admin User',
+                'name' => 'John Doe',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('password123'),
                 'store_id' => config('app.enable_multi_store') ? 1 : null,

@@ -1,8 +1,5 @@
-@extends('layouts.storefront')
+<x-app-layout>
 
-@section('title', 'Cart')
-
-@section('content')
     <div class="bg-gray-50 py-12">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">Your Shopping Cart</h2>
@@ -84,4 +81,4 @@
             @endif
         </div>
     </div>
-@endsection
+</x-app-layout>
