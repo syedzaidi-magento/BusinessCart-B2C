@@ -35,9 +35,4 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully.');
     }
 
-    public function userOrders()
-    {
-        $orders = Order::with('user')->get(); // Assuming orders belong to users
-        return view('user.orders.index', compact('orders'));
-    }
 }
