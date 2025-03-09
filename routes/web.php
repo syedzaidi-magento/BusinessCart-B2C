@@ -74,6 +74,8 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/addresses/{type}/edit', [\App\Http\Controllers\User\AddressController::class, 'edit'])->name('user.addresses.edit');
     Route::put('/addresses/{type}', [\App\Http\Controllers\User\AddressController::class, 'update'])->name('user.addresses.update');
     Route::delete('/addresses/{type}', [\App\Http\Controllers\User\AddressController::class, 'destroy'])->name('user.addresses.destroy');
+    Route::get('/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('orders.index');
+
 });
 
 // Storefront routes

@@ -47,6 +47,9 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('orders.index')">
+                            {{ __('Orders') }}
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('user.addresses.index')">
                             {{ __('Addresses') }}
                         </x-dropdown-link>
