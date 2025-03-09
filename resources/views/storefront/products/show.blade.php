@@ -17,7 +17,7 @@
             <div class="bg-white shadow-md rounded-lg p-6">
                 @if ($product->images->isNotEmpty())
                     <!-- Main Image -->
-                    <img src="{{ $product->images->where('is_main', true)->first()->url ?? $product->images->first()->url }}"
+                    <img id="main-image" src="{{ $product->images->where('is_main', true)->first()->url ?? $product->images->first()->url }}"
                          alt="{{ $product->images->where('is_main', true)->first()->alt_text ?? 'Product Image' }}"
                          loading="lazy"
                          class="w-full h-96 object-cover rounded-lg mb-4 transition-transform duration-300 hover:scale-105">
@@ -27,6 +27,7 @@
                         @foreach ($product->images as $image)
                             <img src="{{ $image->url }}"
                                  alt="{{ $image->alt_text }}"
+                                 data-main-src="{{ $image->url }}"
                                  loading="lazy"
                                  class="w-16 h-16 object-cover rounded-md cursor-pointer border-2 hover:border-primary transition-all duration-200 {{ $image->is_main ? 'border-primary' : 'border-transparent' }}">
                         @endforeach
@@ -145,4 +146,16 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnails = document.querySelectorAll('.cursor-pointer');
+            const mainImage = document.getElementById('main-image');
+    
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    mainImage.src = this.getAttribute('data-main-src');
+                });
+            });
+        });
+    </script>
 </x-app-layout>
