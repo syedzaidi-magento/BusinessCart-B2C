@@ -8,10 +8,16 @@ use Illuminate\Http\Request;
 
 class ConfigurationController extends Controller
 {
-    public function index()
+    public function index($storeId = null)
     {
-        $configurations = Configuration::all();
-        return view('admin.configurations.index', compact('configurations'));
+        $configs = [];
+        foreach (Configuration::getPredefinedKeys() as $key) {
+            $configs[$key] = [
+                'definition' => Configuration::getDefinition($key),
+                'value' => Configuration::getConfigValue($key, $storeId),
+            ];
+        }
+        return view('admin.configurations.index', compact('configs', 'storeId'));
     }
 
     public function create()
@@ -36,16 +42,27 @@ class ConfigurationController extends Controller
         return view('admin.configurations.edit', compact('configuration'));
     }
 
-    public function update(Request $request, Configuration $configuration)
+    public function update(Request $request, $storeId = null)
     {
         $request->validate([
-            'key' => 'required|string|max:255',
-            'value' => 'required|string',
-            'description' => 'nullable|string',
+            'configs' => 'array',
+            'configs.*' => 'required', // Add specific validation per type if needed
         ]);
 
-        $configuration->update($request->all());
-        return redirect()->route('admin.configurations.index')->with('success', 'Configuration updated successfully.');
+        foreach ($request->configs as $key => $value) {
+            if (!in_array($key, Configuration::getPredefinedKeys())) {
+                continue; // Skip invalid keys
+            }
+            $definition = Configuration::getDefinition($key);
+            $value = $definition['type'] === 'json' ? json_encode($value) : $value;
+
+            Configuration::updateOrCreate(
+                ['store_id' => $storeId, 'group' => $definition['group'], 'key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Configuration updated successfully.');
     }
 
     public function destroy(Configuration $configuration)

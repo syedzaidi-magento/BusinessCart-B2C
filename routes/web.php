@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/storefront/order/success/{order}', [CheckoutController::class, 'success'])->name('storefront.order.success');
 });
 
 // Multi-language prefix with admin routes
@@ -45,9 +46,10 @@ Route::group(['prefix' => config('app.enable_multi_language') ? '{locale}' : '']
             Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
             Route::post('/products/bulk-delete', [App\Http\Controllers\Admin\ProductController::class, 'bulkDelete'])->name('products.bulk-delete');
             Route::post('/products/{product}/images', [\App\Http\Controllers\Admin\ProductController::class, 'uploadImages'])->name('products.uploadImages');
-            Route::resource('configurations', App\Http\Controllers\Admin\ConfigurationController::class);
-            Route::get('/configurations/storage-driver/edit', [ConfigurationController::class, 'editStorageDriver'])->name('admin.configurations.editStorageDriver');
-            Route::post('/configurations/storage-driver', [ConfigurationController::class, 'updateStorageDriver'])->name('admin.configurations.updateStorageDriver');
+            Route::get('/configurations/{storeId?}', [App\Http\Controllers\Admin\ConfigurationController::class, 'index'])->name('configurations.index');
+            Route::patch('/configurations/{storeId?}', [App\Http\Controllers\Admin\ConfigurationController::class, 'update'])->name('configurations.update');
+            Route::get('/configurations/storage-driver/edit', [App\Http\Controllers\Admin\ConfigurationController::class, 'editStorageDriver'])->name('configurations.editStorageDriver');
+            Route::post('/configurations/storage-driver', [App\Http\Controllers\Admin\ConfigurationController::class, 'updateStorageDriver'])->name('configurations.updateStorageDriver');
             Route::resource('orders', App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'show']);
             Route::resource('users', App\Http\Controllers\Admin\UserController::class);
             Route::resource('stores', App\Http\Controllers\Admin\StoreController::class);

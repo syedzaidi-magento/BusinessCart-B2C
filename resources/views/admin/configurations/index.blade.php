@@ -14,49 +14,35 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-900">Configuration List</h2>
             <div>
-                <a href="{{ route('admin.configurations.editStorageDriver') }}" class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors duration-200 mr-2">Edit Storage Driver</a>
-                <a href="{{ route('admin.configurations.create') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200">Add New Configuration</a>
+                <a href="{{ route('admin.configurations.editStorageDriver') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors duration-200 mr-2">Edit Storage Driver</a>
+                {{-- <a href="{{ route('admin.configurations.create') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200">Add New Configuration</a> --}}
             </div>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="p-3 text-left text-gray-700 font-semibold">Key</th>
-                        <th class="p-3 text-left text-gray-700 font-semibold">Value</th>
-                        <th class="p-3 text-left text-gray-700 font-semibold">Description</th>
-                        <th class="p-3 text-left text-gray-700 font-semibold">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($configurations as $configuration)
-                        <tr class="border-b hover:bg-gray-50 transition-colors duration-200">
-                            <td class="p-3 text-gray-700">{{ $configuration->key }}</td>
-                            <td class="p-3 text-gray-700">
-                                @if (is_array($configuration->value))
-                                    {{ implode(', ', $configuration->value) }} <!-- Convert array to string -->
-                                @else
-                                    {{ $configuration->value }}
-                                @endif
-                            </td>
-                            <td class="p-3 text-gray-600">{{ $configuration->description }}</td>
-                            <td class="p-3 flex space-x-2">
-                                <a href="{{ route('admin.configurations.edit', $configuration) }}" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-colors duration-200">Edit</a>
-                                <form action="{{ route('admin.configurations.destroy', $configuration) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors duration-200" onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="p-3 text-gray-600 text-center">No configurations found.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+        <div class="container mx-auto p-6">
+            <h1 class="text-2xl font-bold mb-6">Configuration Settings</h1>
+            <form method="POST" action="{{ route('admin.configurations.update', $storeId) }}">
+                @csrf
+                @method('PATCH')
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @foreach ($configs as $key => $config)
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <label class="block text-gray-700 font-medium mb-2">{{ $config['definition']['description'] }}</label>
+                            @if ($config['definition']['type'] === 'boolean')
+                                <input type="checkbox" name="configs[{{ $key }}]" value="1" {{ $config['value'] ? 'checked' : '' }} class="h-4 w-4">
+                            @elseif ($config['definition']['type'] === 'decimal')
+                                <input type="number" step="0.01" name="configs[{{ $key }}]" value="{{ $config['value'] }}" class="w-full p-2 border rounded-lg">
+                            @else
+                                <input type="text" name="configs[{{ $key }}]" value="{{ $config['value'] }}" class="w-full p-2 border rounded-lg">
+                            @endif
+                            @error("configs.$key")
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    @endforeach
+                </div>
+                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200">Save Changes</button>
+            </form>
         </div>
     </div>
 @endsection
