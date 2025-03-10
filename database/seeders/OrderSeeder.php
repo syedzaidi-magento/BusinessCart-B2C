@@ -32,7 +32,7 @@ class OrderSeeder extends Seeder
             ],
             [
                 'store_id' => config('app.enable_multi_store') ? 2 : null,
-                'user_id' => 3, // Customer Two
+                'user_id' => 2, // Customer Two
                 'status' => 'pending',
                 'total' => 5.99,
                 'created_at' => now(),
