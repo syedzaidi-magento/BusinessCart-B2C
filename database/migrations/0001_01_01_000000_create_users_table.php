@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -44,6 +46,29 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        DB::table('users')->insert([
+            [
+                'name' => 'John Doe',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('password123'),
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'is_admin' => true,
+                'role' => 'admin',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Customer One',
+                'email' => 'customer1@example.com',
+                'password' => Hash::make('password123'),
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'is_admin' => false,
+                'role' => 'customer',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     /**
