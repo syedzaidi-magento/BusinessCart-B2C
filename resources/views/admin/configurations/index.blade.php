@@ -15,7 +15,6 @@
             <h2 class="text-2xl font-bold text-gray-900">Configuration List</h2>
             <div>
                 <a href="{{ route('admin.configurations.editStorageDriver') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors duration-200 mr-2">Edit Storage Driver</a>
-                {{-- <a href="{{ route('admin.configurations.create') }}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200">Add New Configuration</a> --}}
             </div>
         </div>
 
