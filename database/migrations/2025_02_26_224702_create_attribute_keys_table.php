@@ -19,6 +19,18 @@ return new class extends Migration
             $table->boolean('is_required')->default(false);
             $table->timestamps();
         });
+
+        DB::table('attribute_keys')->insert([
+            ['model_type' => 'Product', 'key_name' => 'color', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'size', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'weight', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'height', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'width', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'length', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'material', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'brand', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'model', 'data_type' => 'string', 'is_required' => false],
+        ]);
     }
 
     /**
