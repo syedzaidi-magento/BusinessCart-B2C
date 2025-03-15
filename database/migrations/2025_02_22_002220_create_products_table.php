@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateProductsTable extends Migration
 {
@@ -19,6 +20,20 @@ class CreateProductsTable extends Migration
             $table->json('custom_attributes')->nullable()->after('description');
             $table->timestamps();
         });
+
+        // Insert some sample products
+        DB::table('products')->insert([
+            [
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'type' => 'simple',
+                'name' => 'Product One',
+                'description' => 'This is a simple product.',
+                'price' => 19.99,
+                'quantity' => 100,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        ]);
     }
 
     public function down()

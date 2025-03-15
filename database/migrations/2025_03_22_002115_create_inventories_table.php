@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateInventoriesTable extends Migration
 {
@@ -20,6 +21,17 @@ class CreateInventoriesTable extends Migration
             $table->json('custom_attributes')->nullable()->after('location');
             $table->timestamps();
         });
+
+        DB::table('inventories')->insert([
+            [
+                'product_id' => 1,
+                'quantity' => 100,
+                'warehouse_id' => 1,
+                'shelf_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 
     public function down()
