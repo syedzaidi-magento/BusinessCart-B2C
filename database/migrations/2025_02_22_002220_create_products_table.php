@@ -14,6 +14,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('store_id')->nullable(); // Nullable for single-store mode
             $table->enum('type', ['simple', 'configurable', 'grouped', 'bundle']);
             $table->string('name');
+            $table->string('sku')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0)->after('price'); // Stock quantity
@@ -27,6 +28,7 @@ class CreateProductsTable extends Migration
                 'store_id' => config('app.enable_multi_store') ? 1 : null,
                 'type' => 'simple',
                 'name' => 'Product One',
+                'sku' => 'PROD-001',
                 'description' => 'This is a simple product.',
                 'price' => 19.99,
                 'quantity' => 100,
