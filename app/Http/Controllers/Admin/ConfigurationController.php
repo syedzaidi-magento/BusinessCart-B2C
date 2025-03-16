@@ -44,22 +44,23 @@ class ConfigurationController extends Controller
 
     public function update(Request $request, $storeId = null)
     {
-        $request->validate([
-            'configs' => 'array',
-            'configs.*' => 'required', // Add specific validation per type if needed
-        ]);
+        $submittedConfigs = $request->input('configs', []);
 
-        foreach ($request->configs as $key => $value) {
+        foreach ($submittedConfigs as $key => $value) {
+            // Validate that the key is a predefined configuration key
             if (!in_array($key, Configuration::getPredefinedKeys())) {
                 continue; // Skip invalid keys
             }
-            $definition = Configuration::getDefinition($key);
-            $value = $definition['type'] === 'json' ? json_encode($value) : $value;
 
-            Configuration::updateOrCreate(
-                ['store_id' => $storeId, 'group' => $definition['group'], 'key' => $key],
-                ['value' => $value]
-            );
+            $definition = Configuration::getDefinition($key);
+            // Handle type-specific value processing if needed
+            $processedValue = $definition['type'] === 'json' ? json_encode($value) : $value;
+
+            // Update the configuration if it exists
+            Configuration::where('store_id', $storeId)
+                ->where('group', $definition['group'])
+                ->where('key', $key)
+                ->update(['value' => $processedValue]);
         }
 
         return redirect()->back()->with('success', 'Configuration updated successfully.');

@@ -14,7 +14,7 @@ class CreateConfigurationsTable extends Migration
             $table->unsignedBigInteger('store_id')->nullable();
             $table->string('group');
             $table->string('key');
-            $table->text('value');
+            $table->text('value')->nullable();
             $table->timestamps();
 
             $table->unique(['store_id', 'group', 'key']);
