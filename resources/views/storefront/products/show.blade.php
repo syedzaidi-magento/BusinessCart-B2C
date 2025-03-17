@@ -51,7 +51,7 @@
                     @else
                         <p id="effective-price" class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                     @endif
-                    <p class="text-sm text-gray-500 mt-1">
+                    <p id="stock-status" class="text-sm text-gray-500 mt-1">
                         {{ $product->isInStock() ? 'In Stock' : 'Out of Stock' }} 
                         ({{ $product->inventory && $product->inventory->quantity > 0 ? $product->inventory->quantity : 0 }} available)
                     </p>
@@ -67,7 +67,9 @@
                             <select name="variation_id" id="variation" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
                                 <option value="">Select an option</option>
                                 @foreach ($product->variations as $variation)
-                                    <option value="{{ $variation->id }}" data-price-adjustment="{{ $variation->price_adjustment ?? 0 }}">
+                                    <option value="{{ $variation->id }}" 
+                                            data-price-adjustment="{{ $variation->price_adjustment ?? 0 }}"
+                                            data-quantity="{{ $variation->quantity }}">
                                         {{ $variation->attribute }}: {{ $variation->value }} (+${{ number_format($variation->price_adjustment, 2) }})
                                     </option>
                                 @endforeach
@@ -161,29 +163,52 @@
                 });
             });
 
-            // New price update logic for configurable products
+            // Price and stock update logic for configurable products
             const pricingSection = document.getElementById('pricing-section');
             const originalPriceElement = document.getElementById('original-price');
             const effectivePriceElement = document.getElementById('effective-price');
+            const stockStatusElement = document.getElementById('stock-status');
             const variationSelect = document.getElementById('variation');
+            const quantityInput = document.getElementById('quantity');
+            const addToCartButton = document.querySelector('button[type="submit"]');
             const basePrice = parseFloat(pricingSection.dataset.basePrice);
 
             if (variationSelect) {
                 variationSelect.addEventListener('change', function() {
                     const selectedOption = this.options[this.selectedIndex];
                     const priceAdjustment = parseFloat(selectedOption.dataset.priceAdjustment) || 0;
+                    const variationQuantity = parseInt(selectedOption.dataset.quantity) || 0;
                     const newPrice = basePrice + priceAdjustment;
 
-                    // Update effective price
+                    // Update price
                     effectivePriceElement.textContent = `$${newPrice.toFixed(2)}`;
-
-                    // Show original price if there's an adjustment
                     if (priceAdjustment > 0 && originalPriceElement) {
                         originalPriceElement.classList.remove('hidden');
                     } else if (originalPriceElement) {
                         originalPriceElement.classList.add('hidden');
                     }
+
+                    // Update stock status and quantity input
+                    if (selectedOption.value === '') {
+                        // Reset to product-level stock if no variation selected
+                        const productQuantity = {{ $product->inventory && $product->inventory->quantity > 0 ? $product->inventory->quantity : 0 }};
+                        stockStatusElement.textContent = `${productQuantity > 0 ? 'In Stock' : 'Out of Stock'} (${productQuantity} available)`;
+                        quantityInput.max = productQuantity > 0 ? productQuantity : 1;
+                        quantityInput.disabled = productQuantity <= 0;
+                        addToCartButton.disabled = productQuantity <= 0;
+                    } else {
+                        // Update based on selected variation
+                        stockStatusElement.textContent = `${variationQuantity > 0 ? 'In Stock' : 'Out of Stock'} (${variationQuantity} available)`;
+                        quantityInput.max = variationQuantity > 0 ? variationQuantity : 1;
+                        quantityInput.disabled = variationQuantity <= 0;
+                        addToCartButton.disabled = variationQuantity <= 0;
+                    }
                 });
+
+                // Trigger change event on load to set initial state if a variation is pre-selected
+                if (variationSelect.value) {
+                    variationSelect.dispatchEvent(new Event('change'));
+                }
             }
         });
     </script>
