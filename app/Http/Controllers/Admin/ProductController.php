@@ -131,46 +131,66 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $attributeKeys = AttributeKey::where('model_type', 'Product')->get();
-
+    
         // Dynamic validation rules based on attribute keys
         $rules = $attributeKeys->mapWithKeys(function ($key) {
             $rule = $key->data_type === 'integer' ? 'integer' : ($key->data_type === 'boolean' ? 'boolean' : 'string');
             return ["custom_attributes.{$key->key_name}" => ($key->is_required ? "required|$rule" : "nullable|$rule")];
         })->all();
-
-        $request->validate(array_merge([
-            'store_id' => 'required|exists:stores,id',
-            'name' => 'required|string|max:255',
-            'type' => 'required|in:' . implode(',', Product::TYPES),
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required_if:type,simple|integer|min:0',
-            'description' => 'nullable|string',
-            'variations' => 'nullable|array',
-            'variations.*.attribute' => 'required_with:variations|string',
-            'variations.*.value' => 'required_with:variations|string',
-            'variations.*.price_adjustment' => 'nullable|numeric',
-            'variations.*.quantity' => 'required_with:variations|integer|min:0',
-            'related_products' => 'required_if:type,grouped,bundle|array',
-            'related_products.*' => 'exists:products,id',
-            'custom_attributes' => 'nullable|array',
-        ], $rules));
-
+    
+        Log::debug('Update Request Data: ' . json_encode($request->all()));
+    
+        try {
+            $request->validate(array_merge([
+                'store_id' => 'required|exists:stores,id',
+                'name' => 'required|string|max:255',
+                'type' => 'required|in:' . implode(',', Product::TYPES),
+                'price' => 'required|numeric|min:0',
+                'quantity' => 'nullable|required_if:type,simple|integer|min:0', // Adjusted for nullable
+                'description' => 'nullable|string',
+                'variations' => 'nullable|array',
+                'variations.*.attribute' => 'required_with:variations|string',
+                'variations.*.value' => 'required_with:variations|string',
+                'variations.*.price_adjustment' => 'nullable|numeric',
+                'variations.*.quantity' => 'required_with:variations|integer|min:0',
+                'related_products' => 'required_if:type,grouped,bundle|array',
+                'related_products.*' => 'exists:products,id',
+                'custom_attributes' => 'nullable|array',
+            ], $rules));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation failed: ' . json_encode($e->errors()));
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
+    
         // Filter only populated attributes
         $customAttributes = collect($request->input('custom_attributes', []))
             ->filter(fn ($value, $key) => !empty($value) && in_array($key, $attributeKeys->pluck('key_name')->toArray()))
             ->all();
-
+    
+        Log::debug('Custom Attributes to Update: ' . json_encode($customAttributes));
+    
+        // Update the product
         $product->update(array_merge(
             $request->only(['store_id', 'name', 'type', 'price', 'quantity', 'description']),
             ['custom_attributes' => $customAttributes]
         ));
-
+    
+        Log::debug('Product Updated: ' . $product->id);
+    
+        // Handle configurable product variations
         if ($request->type === 'configurable' && $request->has('variations')) {
-            $product->variations()->delete();
-            foreach ($request->variations as $variationData) {
-                $product->variations()->create($variationData);
+            Log::debug('Processing Configurable Product Variations: ' . json_encode($request->variations));
+            $product->variations()->delete(); // Delete existing variations
+            foreach ($request->variations as $index => $variationData) {
+                try {
+                    $variation = $product->variations()->create($variationData);
+                    Log::debug('Variation Created: ' . $variation->id . ' for Product: ' . $product->id);
+                } catch (\Exception $e) {
+                    Log::error('Failed to create variation at index ' . $index . ': ' . $e->getMessage());
+                }
             }
         } elseif (in_array($request->type, ['grouped', 'bundle']) && $request->has('related_products')) {
+            Log::debug('Processing Related Products: ' . json_encode($request->related_products));
             $product->relatedProducts()->detach();
             foreach ($request->related_products as $index => $relatedId) {
                 $product->relatedProducts()->attach($relatedId, ['position' => $index]);
@@ -179,7 +199,9 @@ class ProductController extends Controller
             $product->variations()->delete();
             $product->relatedProducts()->detach();
         }
-
+    
+        Log::debug('Product Update Completed for ID: ' . $product->id);
+    
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 

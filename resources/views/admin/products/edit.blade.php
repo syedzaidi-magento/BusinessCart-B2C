@@ -132,17 +132,17 @@
                     <h3 class="text-lg font-medium text-gray-800 mb-2">Variations</h3>
                     <div id="variations">
                         @forelse (old('variations', $product->variations->toArray()) as $index => $variation)
-                            <div class="variation flex space-x-2 mb-2">
+                            <div class="variation flex space-x-2 mb-2" data-index="{{ $index }}">
                                 <input type="text" name="variations[{{ $index }}][attribute]" placeholder="Attribute" class="p-2 border rounded-lg flex-1 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" value="{{ $variation['attribute'] }}">
                                 <input type="text" name="variations[{{ $index }}][value]" placeholder="Value" class="p-2 border rounded-lg flex-1 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" value="{{ $variation['value'] }}">
                                 <input type="number" step="0.01" name="variations[{{ $index }}][price_adjustment]" placeholder="Price Adjustment" class="p-2 border rounded-lg w-24 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" value="{{ $variation['price_adjustment'] }}">
                                 <input type="number" name="variations[{{ $index }}][quantity]" placeholder="Quantity" class="p-2 border rounded-lg w-24 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" value="{{ $variation['quantity'] ?? 0 }}">
-                                <button type="submit" name="remove_variation" value="{{ $index }}" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors duration-200">Remove</button>
+                                <button type="button" onclick="this.parentElement.remove()" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors duration-200">Remove</button>
                             </div>
                         @empty
                             <!-- Empty state if no variations -->
                         @endforelse
-                        <button type="submit" name="add_variation" value="1" class="bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-colors duration-200 mt-2">Add Variation</button>
+                        <button type="button" onclick="addVariation()" class="bg-primary text-white px-3 py-1 rounded-lg hover:bg-primary-dark transition-colors duration-200 mt-2">Add Variation</button>
                     </div>
                 </div>
 
@@ -173,11 +173,30 @@
     </div>
 
     <script>
+        let variationIndex = {{ old('variations', $product->variations->toArray()) ? count(old('variations', $product->variations->toArray())) : 0 }};
+    
+        function addVariation() {
+            const container = document.getElementById('variations');
+            const variationDiv = document.createElement('div');
+            variationDiv.className = 'variation flex space-x-2 mb-2';
+            variationDiv.dataset.index = variationIndex;
+            variationDiv.innerHTML = `
+                <input type="text" name="variations[${variationIndex}][attribute]" placeholder="Attribute" class="p-2 border rounded-lg flex-1 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+                <input type="text" name="variations[${variationIndex}][value]" placeholder="Value" class="p-2 border rounded-lg flex-1 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+                <input type="number" step="0.01" name="variations[${variationIndex}][price_adjustment]" placeholder="Price Adjustment" class="p-2 border rounded-lg w-24 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+                <input type="number" name="variations[${variationIndex}][quantity]" placeholder="Quantity" class="p-2 border rounded-lg w-24 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200" value="0">
+                <button type="button" onclick="this.parentElement.remove()" class="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors duration-200">Remove</button>
+            `;
+            container.appendChild(variationDiv);
+            variationIndex++;
+        }
+    
         function toggleProductType(type) {
             document.getElementById('quantity-container').classList.toggle('hidden', type !== 'simple');
             document.getElementById('variations-container').classList.toggle('hidden', type !== 'configurable');
             document.getElementById('related-products-container').classList.toggle('hidden', !['grouped', 'bundle'].includes(type));
         }
+    
         document.addEventListener('DOMContentLoaded', function () {
             toggleProductType('{{ old('type', $product->type) }}');
             document.getElementById('type').addEventListener('change', function () {
