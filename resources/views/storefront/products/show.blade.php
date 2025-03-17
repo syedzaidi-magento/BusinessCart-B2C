@@ -2,16 +2,15 @@
     <x-slot name="title">{{ $product->name }}</x-slot>
     <x-slot name="pageTitle">{{ $product->name }}</x-slot>
 
-
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <!-- Breadcrumb -->
-    <nav class="bg-gray-100 py-3 px-6">
-        <ol class="flex space-x-2 text-sm text-gray-600">
-            <li><a href="{{ route('storefront.products.index') }}" class="hover:text-primary">Products</a></li>
-            <li>/</li>
-            <li>{{ $product->name }}</li>
-        </ol>
-    </nav>
+        <!-- Breadcrumb -->
+        <nav class="bg-gray-100 py-3 px-6">
+            <ol class="flex space-x-2 text-sm text-gray-600">
+                <li><a href="{{ route('storefront.products.index') }}" class="hover:text-primary">Products</a></li>
+                <li>/</li>
+                <li>{{ $product->name }}</li>
+            </ol>
+        </nav>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Product Images -->
             <div class="bg-white shadow-md rounded-lg p-6">
@@ -45,12 +44,12 @@
                 <p class="text-gray-600 mb-4">Type: <span class="font-medium">{{ ucfirst($product->type) }}</span></p>
 
                 <!-- Pricing -->
-                <div class="mb-6">
+                <div class="mb-6" id="pricing-section" data-base-price="{{ $product->price }}">
                     @if ($product->getEffectivePrice() < $product->price)
-                        <p class="text-gray-500 line-through text-xl">${{ number_format($product->price, 2) }}</p>
-                        <p class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
+                        <p id="original-price" class="text-gray-500 line-through text-xl">${{ number_format($product->price, 2) }}</p>
+                        <p id="effective-price" class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                     @else
-                        <p class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
+                        <p id="effective-price" class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                     @endif
                     <p class="text-sm text-gray-500 mt-1">
                         {{ $product->isInStock() ? 'In Stock' : 'Out of Stock' }} 
@@ -66,8 +65,11 @@
                         <div class="mb-4">
                             <label for="variation" class="block text-gray-700 font-medium mb-2">Select Variation</label>
                             <select name="variation_id" id="variation" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+                                <option value="">Select an option</option>
                                 @foreach ($product->variations as $variation)
-                                    <option value="{{ $variation->id }}">{{ $variation->attribute }}: {{ $variation->value }} (+${{ number_format($variation->price_adjustment, 2) }})</option>
+                                    <option value="{{ $variation->id }}" data-price-adjustment="{{ $variation->price_adjustment ?? 0 }}">
+                                        {{ $variation->attribute }}: {{ $variation->value }} (+${{ number_format($variation->price_adjustment, 2) }})
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -146,8 +148,10 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Existing thumbnail gallery logic
             const thumbnails = document.querySelectorAll('.cursor-pointer');
             const mainImage = document.getElementById('main-image');
     
@@ -156,6 +160,31 @@
                     mainImage.src = this.getAttribute('data-main-src');
                 });
             });
+
+            // New price update logic for configurable products
+            const pricingSection = document.getElementById('pricing-section');
+            const originalPriceElement = document.getElementById('original-price');
+            const effectivePriceElement = document.getElementById('effective-price');
+            const variationSelect = document.getElementById('variation');
+            const basePrice = parseFloat(pricingSection.dataset.basePrice);
+
+            if (variationSelect) {
+                variationSelect.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const priceAdjustment = parseFloat(selectedOption.dataset.priceAdjustment) || 0;
+                    const newPrice = basePrice + priceAdjustment;
+
+                    // Update effective price
+                    effectivePriceElement.textContent = `$${newPrice.toFixed(2)}`;
+
+                    // Show original price if there's an adjustment
+                    if (priceAdjustment > 0 && originalPriceElement) {
+                        originalPriceElement.classList.remove('hidden');
+                    } else if (originalPriceElement) {
+                        originalPriceElement.classList.add('hidden');
+                    }
+                });
+            }
         });
     </script>
 </x-app-layout>
