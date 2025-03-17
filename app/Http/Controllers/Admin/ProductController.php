@@ -37,7 +37,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $attributeKeys = AttributeKey::where('model_type', 'Product')->get();
-
+    
         // Validation rules
         $rules = $attributeKeys->mapWithKeys(function ($key) {
             $rule = $key->data_type === 'integer' ? 'integer' : ($key->data_type === 'boolean' ? 'boolean' : 'string');
@@ -46,7 +46,7 @@ class ProductController extends Controller
             }
             return ["custom_attributes.{$key->key_name}" => $rule];
         })->all();
-
+    
         $request->validate(array_merge([
             'custom_attributes' => 'nullable|array',
             'custom_attributes.*' => 'string', // Adjust validation based on needs
@@ -64,13 +64,14 @@ class ProductController extends Controller
             'related_products' => 'required_if:type,grouped,bundle|array',
             'related_products.*' => 'exists:products,id',
         ], $rules));
-
+    
         // Filter only populated attributes
         $customAttributes = collect($request->input('custom_attributes', []))
             ->filter(fn ($value, $key) => !empty($value) && in_array($key, $attributeKeys->pluck('key_name')->toArray()))
             ->all();
-
-        $product = Product::create(
+    
+        // Fix: Properly merge custom_attributes into the create array
+        $product = Product::create(array_merge(
             $request->only([
                 'store_id', 
                 'name',
@@ -79,9 +80,10 @@ class ProductController extends Controller
                 'price', 
                 'quantity', 
                 'description',
-                'custom_attributes' => $customAttributes,
-            ]));
-
+            ]),
+            ['custom_attributes' => $customAttributes]
+        ));
+    
         if ($request->type === 'configurable' && $request->has('variations')) {
             foreach ($request->variations as $variationData) {
                 $product->variations()->create($variationData);
@@ -91,7 +93,7 @@ class ProductController extends Controller
                 $product->relatedProducts()->attach($relatedId, ['position' => $index]);
             }
         }
-
+    
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
 

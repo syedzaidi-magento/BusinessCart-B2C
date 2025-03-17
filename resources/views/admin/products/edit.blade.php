@@ -65,6 +65,14 @@
                 </div>
 
                 <div>
+                    <label for="sku" class="block text-gray-700 font-medium mb-2">SKU</label>
+                    <input type="text" name="sku" id="sku" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 @error('sku') border-red-500 @enderror" value="{{ old('sku', $product->sku) }}">
+                    @error('sku')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="type" class="block text-gray-700 font-medium mb-2">Type</label>
                     <select name="type" id="type" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 @error('type') border-red-500 @enderror">
                         <option value="simple" {{ old('type', $product->type) == 'simple' ? 'selected' : '' }}>Simple</option>
