@@ -73,7 +73,8 @@ class ProductController extends Controller
         $product = Product::create(
             $request->only([
                 'store_id', 
-                'name', 
+                'name',
+                'sku', 
                 'type', 
                 'price', 
                 'quantity', 
