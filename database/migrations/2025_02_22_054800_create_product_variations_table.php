@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('product_variations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->string('attribute'); // e.g., 'color', 'size'
-            $table->string('value');     // e.g., 'Red', 'M'
-            $table->decimal('price_adjustment', 10, 2)->nullable();
-            $table->integer('quantity')->default(0)->after('price'); // Stock quantity
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('attribute');
+            $table->string('value');
+            $table->decimal('price_adjustment', 8, 2)->nullable();
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

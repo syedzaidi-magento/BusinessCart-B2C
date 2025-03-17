@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->string('sku')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->integer('quantity')->default(0)->after('price'); // Stock quantity
+            $table->integer('quantity')->default(0)->nullable();
             $table->json('custom_attributes')->nullable()->after('description');
             $table->timestamps();
         });
