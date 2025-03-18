@@ -80,6 +80,9 @@
             </div>
             <div class="mt-8 text-center text-sm">
                 © {{ date('Y') }} {{ config('app.name', 'Your Store') }}. All rights reserved.
+                <div class="mt-2 text-xs text-gray-500 opacity-75">
+                    Powered by <a href="https://businesscart.ai" target="_blank" class="hover:text-[var(--primary-color)] transition-colors duration-200">BusinessCart</a>
+                </div>
             </div>
         </div>
     </footer>
