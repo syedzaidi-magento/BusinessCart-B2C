@@ -32,8 +32,8 @@ class CreateCatalogPriceRulesTable extends Migration
 
         // Insert default catalog price rule
         DB::table('catalog_price_rules')->insert([
-            'name' => 'Default 10% Off Sale',
-            'discount_percentage' => 10.00, // 10% off
+            'name' => 'Default 30% Off Sale',
+            'discount_percentage' => 30.00, // 30% off
             'discount_amount' => null,      // No fixed amount discount
             'start_date' => now(),          // Starts immediately
             'end_date' => now()->addMonth(), // Ends in 1 month
