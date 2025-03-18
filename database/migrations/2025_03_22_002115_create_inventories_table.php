@@ -31,6 +31,30 @@ class CreateInventoriesTable extends Migration
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'product_id' => 2,
+                'quantity' => 50,
+                'warehouse_id' => 1,
+                'shelf_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 3,
+                'quantity' => 75,
+                'warehouse_id' => 1,
+                'shelf_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 4,
+                'quantity' => 200,
+                'warehouse_id' => 1,
+                'shelf_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 

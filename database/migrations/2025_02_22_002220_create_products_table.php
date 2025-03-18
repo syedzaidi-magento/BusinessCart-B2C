@@ -37,7 +37,43 @@ class CreateProductsTable extends Migration
                 'featured' => true, // Set featured for the sample product
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
+            ],
+            [
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'type' => 'simple',
+                'name' => 'Product Two',
+                'sku' => 'PROD-002',
+                'description' => 'This is another simple product.',
+                'price' => 29.99,
+                'quantity' => 50,
+                'featured' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'type' => 'simple',
+                'name' => 'Product Three',
+                'sku' => 'PROD-003',
+                'description' => 'This is a third simple product.',
+                'price' => 39.99,
+                'quantity' => 75,
+                'featured' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'store_id' => config('app.enable_multi_store') ? 1 : null,
+                'type' => 'simple',
+                'name' => 'Product Four',
+                'sku' => 'PROD-004',
+                'description' => 'This is a fourth simple product.',
+                'price' => 49.99,
+                'quantity' => 25,
+                'featured' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateCatalogPriceRulesTable extends Migration
 {
@@ -28,6 +29,36 @@ class CreateCatalogPriceRulesTable extends Migration
             $table->foreign('catalog_price_rule_id')->references('id')->on('catalog_price_rules')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
+
+        // Insert default catalog price rule
+        DB::table('catalog_price_rules')->insert([
+            'name' => 'Default 10% Off Sale',
+            'discount_percentage' => 10.00, // 10% off
+            'discount_amount' => null,      // No fixed amount discount
+            'start_date' => now(),          // Starts immediately
+            'end_date' => now()->addMonth(), // Ends in 1 month
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Optional: Associate with all existing products (uncomment if desired)
+        $ruleId = DB::table('catalog_price_rules')->first()->id;
+        $productIds = DB::table('products')->pluck('id')->toArray();
+        
+        $pivotData = array_map(function ($productId) use ($ruleId) {
+            return [
+                'catalog_price_rule_id' => $ruleId,
+                'product_id' => $productId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }, $productIds);
+
+        if (!empty($pivotData)) {
+            DB::table('catalog_price_rule_products')->insert($pivotData);
+        }
+
     }
 
     public function down()
