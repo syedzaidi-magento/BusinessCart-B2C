@@ -73,6 +73,14 @@
                     @enderror
                 </div>
 
+                <div>
+                    <label for="featured" class="block text-gray-700 font-medium mb-2">Featured</label>
+                    <input type="checkbox" name="featured" id="featured" value="1" {{ old('featured') ? 'checked' : '' }} class="h-5 w-5 text-primary border-gray-300 rounded focus:ring-primary">
+                    @error('featured')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div id="custom-attributes">
                     <h3 class="text-lg font-medium text-gray-800 mb-2">Custom Attributes</h3>
                     @foreach ($attributeKeys as $key)

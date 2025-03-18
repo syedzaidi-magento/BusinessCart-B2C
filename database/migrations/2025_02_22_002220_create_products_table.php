@@ -19,6 +19,8 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0)->nullable();
             $table->json('custom_attributes')->nullable()->after('description');
+            $table->boolean('featured')->default(false);
+            
             $table->timestamps();
         });
 
@@ -32,6 +34,7 @@ class CreateProductsTable extends Migration
                 'description' => 'This is a simple product.',
                 'price' => 19.99,
                 'quantity' => 100,
+                'featured' => true, // Set featured for the sample product
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
