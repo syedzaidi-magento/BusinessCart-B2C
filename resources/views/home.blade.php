@@ -90,29 +90,39 @@
         </div>
     </section>
 
-    <!-- Deals Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-gray-900 text-center mb-12 animate-fade-in">
-                Hot Deals
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                @foreach ([['title' => 'Limited Time Offer', 'discount' => '30% Off', 'img' => 'https://via.placeholder.com/600x300?text=Deal+1'], ['title' => 'Bundle Sale', 'discount' => 'Buy 2, Get 1 Free', 'img' => 'https://via.placeholder.com/600x300?text=Deal+2']] as $deal)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row animate-fade-in-delay">
-                        <img src="{{ $deal['img'] }}" alt="{{ $deal['title'] }}" class="w-full md:w-1/2 h-64 object-cover">
-                        <div class="p-6 flex-1 flex flex-col justify-center">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $deal['title'] }}</h3>
-                            <p class="text-[var(--primary-color)] font-bold text-lg mb-4">{{ $deal['discount'] }}</p>
-                            <a href="{{ route('storefront.products.index') }}"
-                               class="inline-block bg-[var(--primary-color)] text-white px-6 py-2 rounded-md hover:bg-[var(--primary-color-dark)] transition-colors duration-200">
-                                Shop Deal
-                            </a>
-                        </div>
+<!-- Deals Section with Icons -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-12 animate-fade-in">
+            Hot Deals
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @foreach ([['title' => 'Limited Time Offer', 'discount' => '30% Off', 'icon' => 'clock'], ['title' => 'Bundle Sale', 'discount' => 'Buy 2, Get 1 Free', 'icon' => 'tag']] as $deal)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row animate-fade-in-delay">
+                    <div class="w-full md:w-1/2 h-64 flex items-center justify-center bg-gray-100">
+                        @if ($deal['icon'] === 'clock')
+                            <svg class="w-32 h-32 text-[var(--primary-color)] transform hover:scale-105 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2 2 0 0118 14V11a6 6 0 00-6-6 6 6 0 00-6 6v3a2 2 0 01-.595 1.595L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                        @elseif ($deal['icon'] === 'tag')
+                        <svg class="w-32 h-32 text-[var(--primary-color)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 11-4 0 2 2 0 014 0zm0 0V5.5A2.5 2.5 0 1114.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+                        </svg>
+                        @endif
                     </div>
-                @endforeach
-            </div>
+                    <div class="p-6 flex-1 flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $deal['title'] }}</h3>
+                        <p class="text-[var(--primary-color)] font-bold text-lg mb-4">{{ $deal['discount'] }}</p>
+                        <a href="{{ route('storefront.products.index') }}"
+                           class="inline-block bg-[var(--primary-color)] text-white px-6 py-2 rounded-md hover:bg-[var(--primary-color-dark)] transition-colors duration-200">
+                            Shop Deal
+                        </a>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Custom CSS for Animations and Variables -->
     <style>
