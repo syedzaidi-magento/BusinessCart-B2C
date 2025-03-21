@@ -49,7 +49,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div>
                             <h3 class="text-lg font-semibold text-white mb-4">{{ config('app.name', 'Your Store') }}</h3>
-                            <p class="text-sm">Your one-stop shop for quality products.</p>
+                            <p class="text-sm">Your ultimate destination for top-quality products, handpicked to elevate your everyday life. Shop with confidence and discover the difference quality makes.</p>
                         </div>
                         <div>
                             <h3 class="text-lg font-semibold text-white mb-4">Shop</h3>
