@@ -22,7 +22,7 @@
                     <x-nav-link :href="route('storefront.products.index')" :active="request()->routeIs('storefront.products.index')">
                         {{ __('Shop') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('Contact')" :active="request()->routeIs('Contact')">
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>

@@ -62,8 +62,8 @@
                         <div>
                             <h3 class="text-lg font-semibold text-white mb-4">Support</h3>
                             <ul class="space-y-2 text-sm">
-                                <li><a href="#" class="hover:text-[var(--primary-color)] transition-colors duration-200">Contact Us</a></li>
-                                <li><a href="#" class="hover:text-[var(--primary-color)] transition-colors duration-200">FAQs</a></li>
+                                <li><a href="{{ route('contact') }}" class="hover:text-[var(--primary-color)] transition-colors duration-200">Contact Us</a></li>
+                                <li><a href="{{ route('faqs') }}" class="hover:text-[var(--primary-color)] transition-colors duration-200">FAQs</a></li>
                                 <li><a href="#" class="hover:text-[var(--primary-color)] transition-colors duration-200">Returns</a></li>
                             </ul>
                         </div>

@@ -29,9 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::get('about', function () {
         return view('about-us');
     })->name('about');
-    Route::get('Contact', function () {
+    Route::get('contact', function () {
         return view('contact-us');
-    })->name('Contact');
+    })->name('contact');
+    Route::get('faqs', function () {
+        return view('faqs');
+    })->name('faqs');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
