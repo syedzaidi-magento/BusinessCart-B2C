@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer teal square -->
+    <path fill="#008080" d="M2,2 
+        H30 
+        V30 
+        H2 
+        Z 
+        M14,6 
+        C16,4 18,4 20,6 
+        C24,10 26,14 26,18 
+        C26,24 22,28 18,28 
+        C14,28 10,24 10,18 
+        C10,14 12,10 14,6 
+        Z" />
+    <!-- White B -->
+    <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">B</text>
+</svg>
