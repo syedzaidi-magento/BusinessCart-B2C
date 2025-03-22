@@ -45,7 +45,7 @@ class CreateProductsTable extends Migration
                 'sku' => 'PROD-002',
                 'description' => 'This is another simple product.',
                 'price' => 29.99,
-                'quantity' => 50,
+                'quantity' => 0,
                 'featured' => true,
                 'created_at' => now(),
                 'updated_at' => now(),

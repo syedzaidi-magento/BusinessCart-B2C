@@ -33,7 +33,7 @@ class CreateInventoriesTable extends Migration
             ],
             [
                 'product_id' => 2,
-                'quantity' => 50,
+                'quantity' => 0,
                 'warehouse_id' => 1,
                 'shelf_id' => 1,
                 'created_at' => now(),
