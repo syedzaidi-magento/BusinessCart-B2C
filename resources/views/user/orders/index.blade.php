@@ -1,6 +1,6 @@
 <x-app-layout>
 
-
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <div class="bg-white shadow-md rounded-lg p-6 border border-gray-100">
         <h2 class="text-xl font-bold mb-4">Your Orders</h2>
         @if ($orders->isNotEmpty())
@@ -37,4 +37,5 @@
             <p class="text-gray-500">No addresses found.</p>
         @endif
     </div>
+</div>
 </x-app-layout>
