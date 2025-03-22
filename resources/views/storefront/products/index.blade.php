@@ -70,7 +70,12 @@
                         <!-- Product Details -->
                         <div class="p-6">
                             <h2 class="text-xl font-bold text-gray-900 line-clamp-2">{{ $product->name }}</h2>
-                            <p class="text-sm text-gray-500 mt-1">{{ ucfirst($product->type) }}</p>
+                            <!-- Stock Badge -->
+                            @if ($product->isInStock())
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">In Stock</span>
+                            @else
+                                <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Out of Stock</span>
+                            @endif
                             <div class="mt-2">
                                 @if ($product->getEffectivePrice() < $product->price)
                                     <p class="text-sm flex items-center gap-2">
@@ -81,12 +86,6 @@
                                     <p class="text-teal-600 font-bold text-lg">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                                 @endif
                             </div>
-                            <!-- Stock Badge -->
-                            @if ($product->isInStock())
-                                <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">In Stock</span>
-                            @else
-                                <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Out of Stock</span>
-                            @endif
                         </div>
 
                         <!-- Actions -->
