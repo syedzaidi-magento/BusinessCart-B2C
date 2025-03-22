@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CatalogPriceRuleController;
 use App\Http\Controllers\Admin\CartPriceRuleController;
 use App\Http\Controllers\Admin\TieredPricingController;
 use App\Http\Controllers\Admin\ConfigurationController;
+use App\Http\Controllers\User\WishlistController;
 
 // Public routes
 // Route::get('/', function () {
@@ -78,7 +79,10 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::put('/addresses/{type}', [\App\Http\Controllers\User\AddressController::class, 'update'])->name('user.addresses.update');
     Route::delete('/addresses/{type}', [\App\Http\Controllers\User\AddressController::class, 'destroy'])->name('user.addresses.destroy');
     Route::get('/orders', [App\Http\Controllers\User\OrderController::class, 'index'])->name('orders.index');
-
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::post('/wishlist/{id}/move-to-cart', [WishlistController::class, 'moveToCart'])->name('wishlist.move-to-cart');
 });
 
 // Storefront routes

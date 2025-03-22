@@ -22,7 +22,7 @@
                     <x-nav-link :href="route('storefront.products.index')" :active="request()->routeIs('storefront.products.index')">
                         {{ __('Shop') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                    <x-nav-link :href="route('contact')" :active="request()->routeIs('Contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
@@ -52,6 +52,9 @@
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('user.addresses.index')">
                             {{ __('Addresses') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('wishlist.index')">
+                            {{ __('Wishlist') }}
                         </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

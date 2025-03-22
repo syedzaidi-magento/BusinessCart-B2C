@@ -3,6 +3,12 @@
     <x-slot name="pageTitle">{{ $product->name }}</x-slot>
 
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <!-- Success Message -->
+        @if (session('success'))
+            <div class="mb-4 bg-green-100 text-green-700 p-4 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
         <!-- Breadcrumb -->
         <nav class="bg-gray-100 py-3 px-6">
             <ol class="flex space-x-2 text-sm text-gray-600">
@@ -56,7 +62,15 @@
                         ({{ $product->inventory && $product->inventory->quantity > 0 ? $product->inventory->quantity : 0 }} available)
                     </p>
                 </div>
-
+                <form action="{{ route('wishlist.store') }}" method="POST" class="inline">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <button type="submit" class="text-gray-600 hover:text-[var(--primary-color)]">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                </form>
                 <!-- Add to Cart Form -->
                 <form method="POST" action="{{ route('storefront.cart.add', $product) }}" class="mb-6">
                     @csrf
