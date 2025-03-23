@@ -56,6 +56,7 @@ Route::group(['prefix' => config('app.enable_multi_language') ? '{locale}' : '']
             Route::post('/configurations/storage-driver', [App\Http\Controllers\Admin\ConfigurationController::class, 'updateStorageDriver'])->name('configurations.updateStorageDriver');
             Route::resource('orders', App\Http\Controllers\Admin\OrderController::class)->except(['create', 'store', 'show']);
             Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+            Route::post('/admin/users/{user}/toggle-subscription', [App\Http\Controllers\Admin\UsersController::class, 'toggleSubscription'])->name('admin.users.toggle-subscription');
             Route::resource('stores', App\Http\Controllers\Admin\StoreController::class);
             Route::resource('inventories', \App\Http\Controllers\Admin\InventoryController::class)->except(['show', 'destroy']);
             Route::resource('attribute-keys', App\Http\Controllers\Admin\AttributeKeyController::class);

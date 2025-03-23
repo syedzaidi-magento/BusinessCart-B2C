@@ -61,6 +61,11 @@
                 </div>
 
                 <div>
+                    <label for="newsletter" class="block text-gray-700 font-medium mb-2">Subscribed to Newsletter</label>
+                    <input type="checkbox" name="newsletter" id="newsletter" value="1" class="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded" {{ old('newsletter', $user->newsletterSubscription?->is_subscribed) ? 'checked' : '' }}>
+                </div>
+
+                <div>
                     <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">Update User</button>
                 </div>
             </div>
