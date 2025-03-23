@@ -26,6 +26,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'customer_group_id' => 'required|exists:customer_groups,id',
             'is_admin' => 'boolean',
         ]);
 
@@ -33,6 +34,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'customer_group_id' => $request->customer_group_id,
             'is_admin' => $request->boolean('is_admin', false),
         ]);
 
@@ -50,6 +52,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'customer_group_id' => 'required|exists:customer_groups,id',
             'is_admin' => 'boolean',
         ]);
 
@@ -57,6 +60,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'customer_group_id' => $request->customer_group_id,
             'is_admin' => $request->boolean('is_admin', $user->is_admin),
         ]);
 
