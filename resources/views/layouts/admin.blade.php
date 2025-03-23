@@ -20,7 +20,7 @@
         <aside class="fixed inset-y-0 left-0 w-64 bg-gray-800 text-white transform transition-all duration-300 ease-in-out md:translate-x-0 z-20">
             <div class="p-4 flex items-center space-x-2 border-b border-gray-700">
                 @include('partials.admin-logo')
-                <div class="text-xl font-bold">BusinessCart</div>
+                <div class="text-xl text-gray-400 font-bold">BusinessCart</div>
             </div>
             <nav class="mt-4 px-2">
                 <ul class="space-y-2">
