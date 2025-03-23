@@ -22,6 +22,7 @@
                     <tr class="bg-gray-100">
                         <th class="p-3 text-left text-gray-700 font-semibold">Name</th>
                         <th class="p-3 text-left text-gray-700 font-semibold">Email</th>
+                        <th class="p-3 text-left text-gray-700 font-semibold">Customer Group</th>
                         <th class="p-3 text-left text-gray-700 font-semibold">Admin</th>
                         <th class="p-3 text-left text-gray-700 font-semibold">Actions</th>
                     </tr>
@@ -31,6 +32,7 @@
                         <tr class="border-b hover:bg-gray-50 transition-colors duration-200">
                             <td class="p-3 text-gray-700">{{ $user->name }}</td>
                             <td class="p-3 text-gray-700">{{ $user->email }}</td>
+                            <td class="p-3 text-gray-700">{{ $user->customerGroup->name ?? 'Customer' }}</td>
                             <td class="p-3 text-gray-700">{{ $user->is_admin ? 'Yes' : 'No' }}</td>
                             <td class="p-3 flex space-x-2">
                                 <a href="{{ route('admin.users.edit', $user) }}" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-colors duration-200">Edit</a>
@@ -43,7 +45,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="p-3 text-gray-600 text-center">No users found.</td>
+                            <td colspan="5" class="p-3 text-gray-600 text-center">No users found.</td>
                         </tr>
                     @endforelse
                 </tbody>

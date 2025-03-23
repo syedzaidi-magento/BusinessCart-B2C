@@ -38,6 +38,20 @@
                 </div>
 
                 <div>
+                    <label for="customer_group_id" class="block text-gray-700 font-medium mb-2">Customer Group</label>
+                    <select name="customer_group_id" id="customer_group_id" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 @error('customer_group_id') border-red-500 @enderror">
+                        @foreach (\App\Models\CustomerGroup::all() as $group)
+                            <option value="{{ $group->id }}" {{ old('customer_group_id', \App\Models\CustomerGroup::where('is_default', true)->first()->id) == $group->id ? 'selected' : '' }}>
+                                {{ $group->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('customer_group_id')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="is_admin" class="block text-gray-700 font-medium mb-2">Admin</label>
                     <input type="checkbox" name="is_admin" id="is_admin" value="1" class="h-5 w-5 text-primary focus:ring-primary border-gray-300 rounded" {{ old('is_admin') ? 'checked' : '' }}>
                     @error('is_admin')
