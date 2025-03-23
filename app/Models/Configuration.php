@@ -10,6 +10,18 @@ class Configuration extends Model
 
     // Predefined configuration keys
     protected static $predefinedKeys = [
+        'customer_group_wholesale_discount' => [
+        'group' => 'customer',
+        'type' => 'decimal',
+        'default' => 0.20,
+        'description' => 'Discount percentage for Wholesale customer group',
+        ],
+        'customer_group_retailer_discount' => [
+            'group' => 'customer',
+            'type' => 'decimal',
+            'default' => 0.10,
+            'description' => 'Discount percentage for Retailer customer group',
+        ],
         'shipping_method_free_enable' => [
             'group' => 'shipping',
             'type' => 'boolean',

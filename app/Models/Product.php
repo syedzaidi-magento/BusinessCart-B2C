@@ -73,18 +73,24 @@ class Product extends Model
 
         // Step 1: Apply customer group-specific pricing
         if ($user && $user->customerGroup) {
+            $discount = 0;
             switch ($user->customerGroup->code) {
                 case 'wholesale':
-                    $price *= 0.8; // 20% discount for Wholesale
-                    \Log::debug("Product {$this->id} group discount (Wholesale): Base price {$this->price} -> $price");
+                    $discount = Configuration::where('key', 'customer_group_wholesale_discount')
+                        ->first()
+                        ?->value ?? 0.20; // Fallback to 20% if not found
+                    $price *= (1 - $discount);
+                    \Log::debug("Product {$this->id} group discount (Wholesale): Base price {$this->price} -> $price (Discount: " . ($discount * 100) . "%)");
                     break;
                 case 'retailer':
-                    $price *= 0.9; // 10% discount for Retailer
-                    \Log::debug("Product {$this->id} group discount (Retailer): Base price {$this->price} -> $price");
+                    $discount = Configuration::where('key', 'customer_group_retailer_discount')
+                        ->first()
+                        ?->value ?? 0.10; // Fallback to 10% if not found
+                    $price *= (1 - $discount);
+                    \Log::debug("Product {$this->id} group discount (Retailer): Base price {$this->price} -> $price (Discount: " . ($discount * 100) . "%)");
                     break;
                 case 'customer':
                 default:
-                    // No discount for default "Customer" group
                     \Log::debug("Product {$this->id} group: Customer (no discount)");
                     break;
             }
