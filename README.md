@@ -30,6 +30,10 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - User registration, login, and logout.
   - Role-based access (`admin`, `customer`).
   - User address management (`shipping`, `billing`).
+  - User orders management.
+  - Customer groups and segmentation.
+  - Wishlists management.
+  - Newsletter subscriptions.
 - **Product Management**:
   - Full CRUD for products.
   - Multiple product types (`simple`, `configurable`).
@@ -46,10 +50,6 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
 
 ## Missing Features
 The following features are planned for future development:
-- **User Management**:
-  - Customer groups and segmentation.
-  - Wishlists.
-  - Newsletter subscriptions.
 - **Product/Catalog**:
   - Virtual and downloadable products.
   - Attribute sets.
