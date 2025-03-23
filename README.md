@@ -31,7 +31,7 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Role-based access (`admin`, `customer`).
   - User address management (`shipping`, `billing`).
   - User orders management.
-  - Customer groups and segmentation.
+  - Customer groups and segmentation (`Customer`, `Wholesale`, `Retailer`).
   - Wishlists management.
   - Newsletter subscriptions.
 - **Product Management**:
