@@ -66,6 +66,7 @@ Route::group(['prefix' => config('app.enable_multi_language') ? '{locale}' : '']
             Route::resource('catalog-price-rules', CatalogPriceRuleController::class)->except(['show', 'destroy']);
             Route::resource('cart-price-rules', CartPriceRuleController::class)->except(['show', 'destroy']);
             Route::resource('tiered-pricing', TieredPricingController::class)->except(['show', 'destroy']);
+            Route::get('/admin/customer-groups', [CustomerGroupController::class, 'index'])->name('admin.customer-groups.index');
         });
     });
 });

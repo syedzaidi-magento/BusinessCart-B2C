@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'store_id',
         'role',
+        'customer_group_id',
         'is_admin',
         'phone',
         'status',
@@ -81,7 +82,12 @@ class User extends Authenticatable
     public function getAddressByType($type)
     {
         return $this->addresses->where('type', $type)->first();
-    }    
+    }
+    
+    public function customerGroup()
+    {
+        return $this->belongsTo(CustomerGroup::class);
+    }
 
     public function wishlist()
     {

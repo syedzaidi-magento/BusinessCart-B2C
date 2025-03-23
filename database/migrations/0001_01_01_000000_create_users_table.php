@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->enum('role', ['admin', 'customer'])->default('customer');
+            $table->foreignId('customer_group_id')->nullable()->constrained('customer_groups')->onDelete('set null');
             $table->boolean('is_admin')->default(false);
             $table->string('phone')->nullable();
             $table->string('status')->default('active');

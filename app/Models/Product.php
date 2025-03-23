@@ -69,19 +69,42 @@ class Product extends Model
     public function getEffectivePrice($quantity = 1)
     {
         $price = $this->price;
-    
+        $user = auth()->user();
+
+        // Step 1: Apply customer group-specific pricing
+        if ($user && $user->customerGroup) {
+            switch ($user->customerGroup->code) {
+                case 'wholesale':
+                    $price *= 0.8; // 20% discount for Wholesale
+                    \Log::debug("Product {$this->id} group discount (Wholesale): Base price {$this->price} -> $price");
+                    break;
+                case 'retailer':
+                    $price *= 0.9; // 10% discount for Retailer
+                    \Log::debug("Product {$this->id} group discount (Retailer): Base price {$this->price} -> $price");
+                    break;
+                case 'customer':
+                default:
+                    // No discount for default "Customer" group
+                    \Log::debug("Product {$this->id} group: Customer (no discount)");
+                    break;
+            }
+        }
+
+        // Step 2: Apply tiered pricing
         $tier = $this->tieredPricing()->where('min_quantity', '<=', $quantity)->orderBy('min_quantity', 'desc')->first();
         if ($tier) {
             $price = $tier->price;
+            \Log::debug("Product {$this->id} tiered pricing applied: Quantity $quantity -> Price $price");
         }
-    
-        \Log::debug("Product {$this->id} base price: $price, rules count: " . $this->catalogPriceRules->count());
+
+        // Step 3: Apply catalog price rules
+        \Log::debug("Product {$this->id} base price before rules: $price, rules count: " . $this->catalogPriceRules->count());
         foreach ($this->catalogPriceRules as $rule) {
             $originalPrice = $price;
             $price = $rule->applyDiscount($price);
             \Log::debug("Rule {$rule->id} applied to Product {$this->id}: Original $originalPrice -> Discounted $price");
         }
-    
+
         return $price;
     }
 

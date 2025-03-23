@@ -53,14 +53,17 @@
                 <div class="mb-6" id="pricing-section" data-base-price="{{ $product->price }}">
                     @if ($product->getEffectivePrice() < $product->price)
                         <p id="original-price" class="text-gray-500 line-through text-xl">${{ number_format($product->price, 2) }}</p>
-                        <p id="effective-price" class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
+                        <p id="effective-price" class="text-red-800 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                     @else
-                        <p id="effective-price" class="text-teal-600 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
+                        <p id="effective-price" class="text-red-800 font-bold text-2xl">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                     @endif
                     <p id="stock-status" class="text-sm text-gray-500 mt-1">
                         {{ $product->isInStock() ? 'In Stock' : 'Out of Stock' }} 
                         ({{ $product->inventory && $product->inventory->quantity > 0 ? $product->inventory->quantity : 0 }} available)
                     </p>
+                    @if (auth()->check())
+                        <p class="text-sm text-gray-500 mt-1">Your Price Group: {{ auth()->user()->customerGroup->name ?? 'Customer' }}</p>
+                    @endif
                 </div>
                 <form action="{{ route('wishlist.store') }}" method="POST" class="inline">
                     @csrf

@@ -80,10 +80,10 @@
                                 @if ($product->getEffectivePrice() < $product->price)
                                     <p class="text-sm flex items-center gap-2">
                                         <span class="line-through text-gray-400 decoration-gray-400">${{ number_format($product->price, 2) }}</span>
-                                        <span class="text-teal-600 font-bold text-lg">${{ number_format($product->getEffectivePrice(), 2) }}</span>
+                                        <span class="text-gray-800 font-bold text-lg">${{ number_format($product->getEffectivePrice(), 2) }}</span>
                                     </p>
                                 @else
-                                    <p class="text-teal-600 font-bold text-lg">${{ number_format($product->getEffectivePrice(), 2) }}</p>
+                                    <p class="text-gray-800 font-bold text-lg">${{ number_format($product->getEffectivePrice(), 2) }}</p>
                                 @endif
                             </div>
                         </div>
