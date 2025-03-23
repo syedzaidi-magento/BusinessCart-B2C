@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('sku')->unique();
             $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->default(0)->nullable();
             $table->json('custom_attributes')->nullable()->after('description');
@@ -32,6 +33,7 @@ class CreateProductsTable extends Migration
                 'name' => 'Product One',
                 'sku' => 'PROD-001',
                 'description' => 'This is a simple product.',
+                'short_description' => 'This is a short description for the product.',
                 'price' => 19.99,
                 'quantity' => 100,
                 'featured' => true, // Set featured for the sample product
@@ -44,6 +46,7 @@ class CreateProductsTable extends Migration
                 'name' => 'Product Two',
                 'sku' => 'PROD-002',
                 'description' => 'This is another simple product.',
+                'short_description' => 'This is a short description for the product.',
                 'price' => 29.99,
                 'quantity' => 0,
                 'featured' => true,
@@ -56,6 +59,7 @@ class CreateProductsTable extends Migration
                 'name' => 'Product Three',
                 'sku' => 'PROD-003',
                 'description' => 'This is a third simple product.',
+                'short_description' => 'This is a short description for the product.',
                 'price' => 39.99,
                 'quantity' => 75,
                 'featured' => true,
@@ -68,6 +72,7 @@ class CreateProductsTable extends Migration
                 'name' => 'Product Four',
                 'sku' => 'PROD-004',
                 'description' => 'This is a fourth simple product.',
+                'short_description' => 'This is a short description for the product.',
                 'price' => 49.99,
                 'quantity' => 25,
                 'featured' => true,

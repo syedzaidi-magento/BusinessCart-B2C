@@ -59,6 +59,7 @@ class ProductController extends Controller
                 'price' => 'required|numeric|min:0',
                 'quantity' => 'nullable|required_if:type,simple|integer|min:0', // Updated rule
                 'description' => 'nullable|string',
+                'short_description' => 'nullable|string',
                 'featured' => 'nullable|boolean',
                 'variations' => 'nullable|array',
                 'variations.*.attribute' => 'required_with:variations|string',
@@ -90,6 +91,7 @@ class ProductController extends Controller
                 'price', 
                 'quantity', 
                 'description',
+                'short_description',
                 'featured',
             ]),
             ['custom_attributes' => $customAttributes]
@@ -150,6 +152,7 @@ class ProductController extends Controller
                 'price' => 'required|numeric|min:0',
                 'quantity' => 'nullable|required_if:type,simple|integer|min:0', // Adjusted for nullable
                 'description' => 'nullable|string',
+                'short_description' => 'nullable|string',
                 'featured' => 'nullable|boolean',
                 'variations' => 'nullable|array',
                 'variations.*.attribute' => 'required_with:variations|string',
@@ -174,7 +177,7 @@ class ProductController extends Controller
     
         // Update the product
         $product->update(array_merge(
-            $request->only(['store_id', 'name', 'type', 'price', 'quantity', 'description', 'featured']),
+            $request->only(['store_id', 'name', 'type', 'price', 'quantity', 'description', 'short_description', 'featured']),
             ['custom_attributes' => $customAttributes]
         ));
     

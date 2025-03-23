@@ -74,6 +74,14 @@
                 </div>
 
                 <div>
+                    <label for="short_description" class="block text-gray-700 font-medium mb-2">Short Description</label>
+                    <textarea name="short_description" id="short_description" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 @error('short_description') border-red-500 @enderror">{{ old('short_description') }}</textarea>
+                    @error('short_description')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
                     <label for="featured" class="block text-gray-700 font-medium mb-2">Featured</label>
                     <input type="checkbox" name="featured" id="featured" value="1" {{ old('featured') ? 'checked' : '' }} class="h-5 w-5 text-primary border-gray-300 rounded focus:ring-primary">
                     @error('featured')

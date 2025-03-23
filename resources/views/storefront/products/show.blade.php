@@ -25,7 +25,7 @@
                     <img id="main-image" src="{{ $product->images->where('is_main', true)->first()->url ?? $product->images->first()->url }}"
                          alt="{{ $product->images->where('is_main', true)->first()->alt_text ?? 'Product Image' }}"
                          loading="lazy"
-                         class="w-full h-96 object-cover rounded-lg mb-4 transition-transform duration-300 hover:scale-105">
+                         class="w-full h-100 object-cover rounded-lg mb-4 transition-transform duration-300 hover:scale-105">
 
                     <!-- Thumbnail Gallery -->
                     <div class="flex space-x-2">
@@ -110,25 +110,10 @@
                 </form>
 
                 <!-- Description -->
-                @if ($product->description)
+                @if ($product->short_description)
                     <div class="mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Description</h3>
-                        <p class="text-gray-700">{{ $product->description }}</p>
-                    </div>
-                @endif
-
-                <!-- Attributes -->
-                @if ($attributeKeys->isNotEmpty())
-                    <div class="mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Specifications</h3>
-                        <dl class="grid grid-cols-2 gap-2">
-                            @foreach ($attributeKeys as $key)
-                                @if (isset($product->custom_attributes[$key->key_name]))
-                                    <dt class="text-gray-600 font-medium">{{ ucfirst($key->key_name) }}:</dt>
-                                    <dd class="text-gray-700">{{ $product->custom_attributes[$key->key_name] }}</dd>
-                                @endif
-                            @endforeach
-                        </dl>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Short Description</h3>
+                        <p class="text-gray-700">{{ $product->short_description }}</p>
                     </div>
                 @endif
 
@@ -166,6 +151,52 @@
                 </div>
             </div>
         </div>
+
+<!-- Description and Attributes -->
+<div class="bg-white shadow-md rounded-lg p-6 mt-6 border border-gray-200">
+    <div class="grid grid-cols-1 gap-6">
+        <!-- Description -->
+        @if ($product->description)
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 pb-2">Product Description</h2>
+                <div class="text-gray-700 leading-relaxed prose prose-sm max-w-none">
+                    {!! nl2br(e($product->description)) !!}
+                </div>
+            </div>
+            <span class="border-b border-gray-300"></span>
+        @endif
+
+        <!-- Attributes -->
+        @if ($attributeKeys->isNotEmpty())
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 pb-2">Additional Information</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-200">
+                        <tbody>
+                            @foreach ($attributeKeys as $key)
+                                @if (isset($product->custom_attributes[$key->key_name]))
+                                    <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+                                        <th class="text-left px-4 py-3 text-gray-600 font-medium bg-gray-100 border-r border-gray-200 w-1/3">
+                                            {{ ucfirst(str_replace('_', ' ', $key->key_name)) }}
+                                        </th>
+                                        <td class="px-4 py-3 text-gray-700">
+                                            {{ $product->custom_attributes[$key->key_name] }}
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @else
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-300">Additional Information</h2>
+                <p class="text-gray-600 italic">No additional information available.</p>
+            </div>
+        @endif
+    </div>
+</div>
     </div>
 
     <script>
