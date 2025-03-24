@@ -69,6 +69,40 @@ class CreateProductImagesTable extends Migration
                 'created_at' => '2025-03-18 05:26:19',
                 'updated_at' => '2025-03-18 05:26:19',
             ],
+            // Add more images for product 1
+            [
+                'id' => 5,
+                'product_id' => 1,
+                'image_path' => 'images/products/67e08caac9f04.jpg',
+                'disk' => 'local',
+                'position' => 2,
+                'is_main' => true,
+                'alt_text' => null,
+                'created_at' => '2025-03-18 05:26:35',
+                'updated_at' => '2025-03-18 05:26:35',
+            ],
+            [
+                'id' => 6,
+                'product_id' => 1,
+                'image_path' => 'images/products/67e08cb0c5fc1.jpg',
+                'disk' => 'local',
+                'position' => 3,
+                'is_main' => true,
+                'alt_text' => null,
+                'created_at' => '2025-03-18 05:26:51',
+                'updated_at' => '2025-03-18 05:26:51',
+            ],
+            [
+                'id' => 7,
+                'product_id' => 1,
+                'image_path' => 'images/products/67e08cb5264d9.jpg',
+                'disk' => 'local',
+                'position' => 4,
+                'is_main' => true,
+                'alt_text' => null,
+                'created_at' => '2025-03-18 05:27:07',
+                'updated_at' => '2025-03-18 05:27:07',
+            ],
         ]);
     }
 

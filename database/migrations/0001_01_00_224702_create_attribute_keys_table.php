@@ -31,6 +31,7 @@ return new class extends Migration
             ['model_type' => 'Product', 'key_name' => 'material', 'data_type' => 'string', 'is_required' => false],
             ['model_type' => 'Product', 'key_name' => 'brand', 'data_type' => 'string', 'is_required' => false],
             ['model_type' => 'Product', 'key_name' => 'model', 'data_type' => 'string', 'is_required' => false],
+            ['model_type' => 'Product', 'key_name' => 'upc', 'data_type' => 'string', 'is_required' => false],
         ]);
     }
 
