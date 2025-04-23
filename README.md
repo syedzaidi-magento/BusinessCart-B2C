@@ -51,6 +51,8 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Billing and Shipping Addresses.
 - **Order Management**:
   - Orders tied to `user_id`.
+  - Order Edit and Delete.
+  - Order Status. (pending, processing, shipped, delivered, cancelled)
 - **Payment Management**:
   - Payment Method Apple Pay (Apple Pay API integrated).
   - Payment Method Amazon Pay (Amazon Pay API integrated).
@@ -90,6 +92,7 @@ The following features are planned for future development:
   - Multi-currency support.
 - **Shipping**:
   - Shipping methods Integration. (UPS, USPS, DHA etc...)
+  - Tracking
 - **Tax**:
   - Tax methods Integration. (vertex etc...)
 
