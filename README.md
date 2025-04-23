@@ -23,6 +23,7 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
 - [Screenshots](#screenshots)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
+- [Support](#support)
 - [License](#license)
 
 ## Features
