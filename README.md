@@ -213,5 +213,8 @@ We welcome contributions! To get started:
 
 Please follow our code of conduct and ensure your code passes all tests.
 
+## Support
+For any issues or questions, please contact us at support@businesscart.ai.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
