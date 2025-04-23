@@ -101,25 +101,35 @@ To set up **BusinessCart-B2C** locally, follow these steps:
 - **Composer**: For PHP dependency management.
 - **Node.js & NPM**: For front-end assets.
 - **SQLite**: Default database (or configure MySQL/PostgreSQL).
+- **License key**: obtain a license key at [www.businesscart.ai](https://businesscart.ai).
 
 ### Steps
-1. **Clone the Repository**:
+1. **Register for a License Key:**
+   - Visit our website at [www.businesscart.ai](https://businesscart.ai).
+   - Create an account and obtain a license key.
+
+2. **Set Environment Variable:**
+   - Set the `BUSINESSCART_LICENSE_KEY` environment variable to the license key you received.
+     ```sh
+     export BUSINESSCART_LICENSE_KEY=YOUR_LICENSE_KEY
+     ```
+3. **Clone the Repository**:
    ```bash
    git clone https://github.com/syedzaidi-magento/BusinessCart-B2C.git
    cd BusinessCart-B2C
    ```
 
-2. **Install PHP Dependencies**:
+4. **Install PHP Dependencies**:
    ```bash
    composer install
    ```
 
-3. **Install JavaScript/CSS Dependencies**:
+5. **Install JavaScript/CSS Dependencies**:
    ```bash
    npm install
    ```
 
-4. **Configure Environment**:
+6. **Configure Environment**:
    Copy the example environment file:
    ```bash
    cp .env.example .env
@@ -129,7 +139,7 @@ To set up **BusinessCart-B2C** locally, follow these steps:
    php artisan key:generate
    ```
 
-5. **Set Up Database**:
+7. **Set Up Database**:
    Edit `.env` to configure your database (example uses SQLite):
    ```env
    DB_CONNECTION=sqlite
@@ -140,12 +150,12 @@ To set up **BusinessCart-B2C** locally, follow these steps:
    php artisan migrate
    ```
 
-6. **Compile Front-End Assets**:
+8. **Compile Front-End Assets**:
    ```bash
    npm run dev
    ```
 
-7. **Run the Application**:
+9. **Run the Application**:
    ```bash
    php artisan serve
    ```
