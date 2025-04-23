@@ -44,6 +44,7 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
 - **Cart Functionality**:
   - Add/remove products.
   - Basic persistence for logged-in users.
+  - Cart rules (promotions).  
 - **Order Management**:
   - Orders tied to `user_id`.
 - **Admin Dashboard**:
@@ -57,7 +58,6 @@ The following features are planned for future development:
 
 - **Cart & Checkout**:
   - Guest checkout.
-  - Cart rules (promotions).
   - Multi-step checkout.
 - **Orders & Payments**:
   - Payment gateway integrations (e.g., Stripe).
