@@ -53,10 +53,26 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Payment Method Google Pay (Google Pay API integrated).
   - Payment Method Stripe Pay (Stripe API integrated).  
   - Payment Method P.O (Purchase Order with PO number).
+- **Shipping Management**:
+  - Configurable shipping methods.
+  - Free Shipping
+  - Fix Shipping Rates
+- **Tax Management**:
+  - Configurable Tax Rates.
 
 - **Admin Dashboard**:
-  - Product CRUD with images.
+  - Dashboard with statics.
+  - Product Management with images.
+  - Custom Attribute Management.
+  - Categories Management.
+  - Orders Management.
+  - Inventory, Warehouse and Shelves Management.
+  - Users Management.
   - User address management.
+  - Multi Stores Management.
+  - Catalog, Cart Price and Tiered Price Rules Management.
+  - Configurations Management.
+
 
 ## Missing Features
 The following features are planned for future development:
@@ -69,7 +85,9 @@ The following features are planned for future development:
 - **Orders & Payments**:
   - Multi-currency support.
 - **Shipping**:
-  - Configurable shipping methods.
+  - Shipping methods Integration. (UPS, USPS, DHA etc...)
+- **Tax**:
+  - Tax methods Integration. (vertex etc...)
 
 ## Installation
 To set up **BusinessCart-B2C** locally, follow these steps:
