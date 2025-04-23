@@ -48,6 +48,7 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Tax rates calculation.
   - Apply coupon code 
   - Promotions details. (catalog and cart price discount details)
+  - Billing and Shipping Addresses.
 - **Order Management**:
   - Orders tied to `user_id`.
 - **Payment Management**:
