@@ -47,6 +47,13 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Cart rules (promotions).  
 - **Order Management**:
   - Orders tied to `user_id`.
+- **Payment Management**:
+  - Payment Method Apple Pay (Apple Pay API integrated).
+  - Payment Method Amazon Pay (Amazon Pay API integrated).
+  - Payment Method Google Pay (Google Pay API integrated).
+  - Payment Method Stripe Pay (Stripe API integrated).  
+  - Payment Method P.O (Purchase Order with PO number).
+
 - **Admin Dashboard**:
   - Product CRUD with images.
   - User address management.
@@ -60,7 +67,6 @@ The following features are planned for future development:
   - Guest checkout.
   - Multi-step checkout.
 - **Orders & Payments**:
-  - Payment gateway integrations (e.g., Stripe).
   - Multi-currency support.
 - **Shipping**:
   - Configurable shipping methods.
