@@ -39,6 +39,8 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
   - Multiple product types (`simple`, `configurable`).
   - Product image uploads.
   - Custom attributes.
+  - Attribute sets.
+  - Tier pricing.
 - **Cart Functionality**:
   - Add/remove products.
   - Basic persistence for logged-in users.
@@ -52,8 +54,7 @@ A PHP-based D2C e-commerce platform designed for flexibility and customization. 
 The following features are planned for future development:
 - **Product/Catalog**:
   - Virtual and downloadable products.
-  - Attribute sets.
-  - Tier pricing.
+
 - **Cart & Checkout**:
   - Guest checkout.
   - Cart rules (promotions).
