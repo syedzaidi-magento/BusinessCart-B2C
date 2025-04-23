@@ -51,7 +51,9 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --ansi"
-        ]
+        ],
+        "pre-install-cmd": "php artisan validate:license-key",
+        "pre-update-cmd": "php artisan validate:license-key"
     },
     "extra": {
         "branch-alias": {
